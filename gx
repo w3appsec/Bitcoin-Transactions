@@ -1,0 +1,11 @@
+echo "GENERATING KEYS"
+cat pri.hex | ku  -W > wif
+cat wif
+cat pri.hex | ku  -a -u
+echo "GENERATING TRANSACTION"
+tx $(cat coin) $(cat payto) -F 10000 -o tx.bin 
+echo "SIGNING TRANSACTION"
+tx tx.bin -f wif -o signed_tx.hex
+echo "ANALYSING TRANSACTION"
+tx -a signed_tx.hex
+
